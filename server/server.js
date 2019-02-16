@@ -1,11 +1,16 @@
 const express = require("express");
 const models = require("./models");
-
-const secret = require("../secret");
 const expressGraphQL = require("express-graphql");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const schema = require("./schema/schema");
+
+console.log(process.env.NODE_ENV);
+let secret;
+if (process.env.NODE_ENV === "production") {
+  secret = require("../prodSecret");
+} else secret = require("../secret");
+console.log(secret);
 
 const app = express();
 
